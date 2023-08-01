@@ -6,6 +6,7 @@ from flask import Flask
 # aqui se definen los blueprints que vamos a registrar
 from blueprints.helloword.helloword import helloword
 from blueprints.bye.bye import bye
+from blueprints.empresas.empresas import empresas_bp
 
 # MYSQL y sus configuraciones
 from mysql.connector import Error
@@ -40,13 +41,12 @@ departamentos = appLib.ejecutaQuery(cnx_pool,
 print(departamentos)
 
 app = Flask(__name__)
+app.secret_key = 'hola mundo'
 
 # En esta sección se registran los blueprints
 app.register_blueprint(helloword)
 app.register_blueprint(bye, url_prefix="/bye")
-
-
-
+app.register_blueprint(empresas_bp, url_prefix="/empresas")
 
 if __name__ == "__main__":
     app.run(port=50005, debug=True)
